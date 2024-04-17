@@ -1,0 +1,94 @@
+.container{
+    /* background-color: rgba(0, 0, 0, 0.831); */
+    text-align: center;
+    background-size: cover;
+}
+.mainHead{
+    font-family: 'Barlow', sans-serif;
+    font-weight: bold;
+    color:bisque;
+    margin-top: 2%;
+}
+.container #studentList button:hover {
+    background-color: rgba(0, 139, 139, 0.806);
+    color: bisque;
+    border: none;
+}
+#foot{
+    text-align: right;
+    font-family: 'Pacifico', cursive;
+    font-size: 15px;
+    color: bisque;
+}
+#studentList .btn {
+    font-family: 'Ubuntu', sans-serif;
+    color:navy;
+    text-align: center;
+    background-color:darkcyan;
+    font-weight: bold;
+    display: inline-block;
+    margin: 15px;
+    padding: 30px;
+    cursor: pointer;
+    width: 180px;
+    height: 100px;
+}
+#charts{
+    color: rgba(255, 0, 0, 0.781);
+}
+.bar1{
+
+    margin: 0;
+    padding: 10px;
+    width:100%;
+}
+.analyzer::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 520px; /* Adjust the distance of the line from the box */
+    width: 100%;
+    height: 5px;
+    background-color: darkcyan; /* Line color */
+}
+.primary{
+    /* background-color:bisque; */
+}
+.bar1 .analyzer{
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    text-align: left;
+    color: bisque;
+}
+.bar2{
+    /* background-color: rgb(202, 126, 33); */
+    margin-bottom: 5px;
+    margin-top: 0;
+    padding:0.5px;
+}
+#avgFunctionScoresChart{
+    background-color: white;
+    display: none;
+}
+#avgMethodScoresChart{
+    background-color: white;
+    display: none;
+}
+#numCommentsChart{
+    background-color: white;
+    display: none;
+}
+#pylintRatingsChart{
+    background-color: white;
+    display: none;
+}
+#totalClassScoresChart{
+    background-color: white;
+    display: none;
+}
+#giphy{
+    margin-left: 46%;
+    display: none;
+    width: 80px;
+    height: 80px;
+}

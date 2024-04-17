@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>API Call Buttons</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Barlow&family=Pacifico&family=Ubuntu&display=swap');
+      </style>
+    <link rel="stylesheet" href="stylesCodes.css">
+</head>
+<body>
+    <div class="bar1">
+        <h3 class="analyzer">Code Analyzer</h3>
+    </div>
+    <div class="mainHead">
+        <h4 class="setFont">Click to view a particular Submission</h4>
+    </div>
+    <div>
+        <img id="loadeater" src="images/loadeater.gif" alt="loading" title="Loading...">
+    </div>
+
+<!-- API Call buttons -->
+<div id="apiButtons">
+    <!-- Generate 21 buttons with indexes from "code_block(index)" -->
+    <script>
+        // Page 2 (receiver)
+        var urlParams = new URLSearchParams(window.location.search);
+        var param1 = urlParams.get('par1');
+
+        console.log(param1); // Output: value1
+        var num_buttons;
+        var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "student_id": `${param1}`
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://64de-103-37-201-179.ngrok-free.app", requestOptions)
+            .then(response => response.json())  // Parse the response as JSON
+            .then(data => {
+                num_buttons= data.num_of_buttons;
+                console.log(num_buttons);
+                document.getElementById('loadeater').style.display = 'none';
+                document.getElementById('present').style.display = 'flex';
+                for (let i = 1; i <= num_buttons; i++) {
+                    const button = document.createElement('button');
+                    button.textContent = `Submission ${i}`;
+                    button.className = 'api-button btn-info';
+                    button.onclick = () => sendApiRequest(i);
+                    document.getElementById('apiButtons').appendChild(button);
+                    // Insert a line break after every two buttons
+                    if (i % 2 === 0 || i === num_buttons) {
+                        const lineBreak = document.createElement('br');
+                        document.getElementById('apiButtons').appendChild(lineBreak);
+                }
+                 document.getElementById('apiButtons').scrollIntoView({ behavior: 'smooth' });
+            }
+            })
+            .catch(error => console.log('error', error));
+        
+        
+
+        // Function to send API request with the selected code block index
+        function sendApiRequest(index) {
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "code_block_id": `${index}`
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://64de-103-37-201-179.ngrok-free.app/codeblock", requestOptions)
+            .then(response => response.json())
+            .then(data =>{ 
+                //console.log(data)
+                var code = data.Code;
+                var output = data.Output;
+                var statements = data.Statements;
+                var Rating = data.Pylint_Rating;
+                document.getElementById('codeTextBox').value = data.Code;
+                console.log(document.getElementById('codeTextBox').innerText)
+                document.getElementById('present').scrollIntoView({ behavior: 'smooth' });
+                console.log(code);
+                console.log(output);
+                console.log(statements);
+                console.log(Rating);
+                document.getElementById('ratingbox').innerHTML = Rating;
+                var statementsText = '';
+                for (var i = 0; i < statements.length; i++) {
+                    statementsText += `${i + 1}. ` + statements[i] + '\n';
+                }
+
+                // Set value of statementBox
+                document.getElementById('statementBox').value = statementsText;
+
+                    document.getElementById('outputTextBox').value = output;
+                })
+            .catch(error => console.log('error', error));
+        }
+    </script>
+    <div id="present">
+        <div id="codebox">
+            <h3 id="codeDisplay">View the Code here</h3>
+            <textarea id="codeTextBox" rows="30" cols="80" readonly></textarea>
+        </div>
+        <div id="moreinfo">
+            <h5 id="rating">Rating of this code (out of 10):</h5>
+            <div id="ratingbox"></div>
+            <h2></h2>
+            <h5 id="statements">Things that could be better:</h5>
+            <textarea id="statementBox" rows="10" cols="60" readonly></textarea>
+            <h5></h5>
+            <div id="outputbox">
+                
+                <h5 id="outputDisp">
+                    The output of this code block is:
+                </h5>
+                <textarea id="outputTextBox" rows="10" cols="60" readonly></textarea>
+            </div>
+        </div>
+        <div>
+
+        </div>
+    </div>
+</div>
+
+</body>
+<footer id="foot">~Created by Kartikeya</footer>
+</html>

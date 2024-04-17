@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student List</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Barlow&family=Pacifico&family=Ubuntu&display=swap');
+      </style>
+</head>
+<body class = "container" background="images/main.png">
+    <div class="primary">
+    <div class="bar1">
+        <h3 class="analyzer">Code Analyzer</h3>
+    </div>
+    <div class="bar2">
+        <h1 class="mainHead">Choose the Student ID to view:</h1>
+    </div>
+    <!-- Student ID buttons -->
+    <div id="studentList">
+        <button class="btn btn-info" onclick="sendApiRequest('1096')">1096(analysis)</button>
+        <button class="btn btn-info" onclick="redirectToPage(1096)">1096(view codes)</button>
+        <br>
+        <button class="btn btn-info" onclick="sendApiRequest('1145')">1145(analysis)</button>
+        <button class="btn btn-info" onclick="redirectToPage(1145)">1145(view codes)</button>
+        <br>
+        <button class="btn btn-info" onclick="sendApiRequest('1161')">1161(analysis)</button>
+        <button class="btn btn-info" onclick="redirectToPage(1161)">1161(view codes)</button>
+        <br>
+        <button class="btn btn-info" onclick="sendApiRequest('374')">374(analysis)</button>
+        <button class="btn btn-info" onclick="redirectToPage(374)">374(view codes)</button>
+        <!-- Add more buttons as needed -->
+    </div>
+    <div id="loader">
+        <img id="giphy" src="images/loading.gif" alt="Loading..." title="Loading...">
+    </div>
+    <div id ='charts'>
+        <canvas id="avgFunctionScoresChart" width="400" height="200"></canvas>
+        <canvas id="avgMethodScoresChart" width="400" height="200"></canvas>
+        <canvas id="numCommentsChart" width="400" height="200"></canvas>
+        <canvas id="pylintRatingsChart" width="400" height="200"></canvas>
+        <canvas id="totalClassScoresChart" width="400" height="200"></canvas>
+    </div>
+
+    <script>
+        // Function to send API request with the selected student ID
+        function createChart(elementId, label, data) {
+            var ctx = document.getElementById(elementId).getContext('2d');
+            new Chart(ctx, {
+                type: 'line',  // Set chart type to 'line'
+                data: {
+                    labels: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21],
+                    datasets: [{
+                        label: label,
+                        data: data,
+                        fill: false,  // Do not fill area under the line
+                        borderColor: 'blue',
+                        backgroundColor: 'white',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        x: {
+                            type: 'linear',
+                            position: 'bottom',
+                            min: 1,
+                            max: 25,
+                            grid: {
+                                color: 'black' // Set the grid color for x-axis
+                    },
+                    ticks: {
+                        color: 'navy' // Set the text color for x-axis
+                    }
+                        },
+                        y: {
+
+                            beginAtZero: true,
+                            grid: {
+                        color: 'black' // Set the grid color for y-axis
+                    },
+                    ticks: {
+                        color: 'navy' // Set the text color for y-axis
+                    }
+                        }
+                    }
+                }
+            });
+        }
+        async function sendApiRequest(studentId) {
+            console.log(200);
+            document.getElementById('giphy').style.display = 'block';
+            var myHeaders = new Headers();
+            myHeaders.append("Content-Type", "application/json");
+
+            var raw = JSON.stringify({
+                "student_id": `${studentId}`
+            });
+
+            var requestOptions = {
+                method: 'POST',
+                headers: myHeaders,
+                body: raw,
+                redirect: 'follow'
+            };
+
+            fetch("https://64de-103-37-201-179.ngrok-free.app", requestOptions)
+            .then(response => response.json())  // Parse the response as JSON
+            .then(data => {
+                // Access individual arrays
+                var avgFunctionScores = data.avg_function_scores;
+                var avgMethodScores = data.avg_method_scores;
+                var numComments = data.num_comments;
+                var pylintRatings = data.pylint_ratings;
+                var totalClassScores = data.total_class_scores;
+                document.getElementById('giphy').style.display = 'none';
+                createChart('avgFunctionScoresChart', 'Average Function Scores', avgFunctionScores);
+                document.getElementById('avgFunctionScoresChart').scrollIntoView({ behavior: 'smooth' });
+                document.getElementById('avgFunctionScoresChart').style.display = 'block';
+                createChart('avgMethodScoresChart', 'Average Method Scores', avgMethodScores);
+                document.getElementById('avgMethodScoresChart').style.display = 'block';
+                createChart('numCommentsChart', 'Number of Comments', numComments);
+                document.getElementById('numCommentsChart').style.display = 'block';
+                createChart('pylintRatingsChart', 'Pylint Ratings', pylintRatings);
+                document.getElementById('pylintRatingsChart').style.display = 'block';
+                createChart('totalClassScoresChart', 'Total Class Scores', totalClassScores);
+                document.getElementById('totalClassScoresChart').style.display = 'block';
+
+            })
+            .catch(error => console.log('error', error));
+        }
+        function redirectToPage(student_id) {
+            var par1 = student_id;
+            console.log(par1);
+            var url = 'viewcodes.html?par1='+encodeURIComponent(par1);
+            console.log(url);
+            window.location.href = url;
+        }
+    </script>
+</div>
+</body>
+<footer id="foot">~Created by Kartikeya</footer>
+</html>

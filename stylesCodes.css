@@ -1,0 +1,135 @@
+.api-button{
+    transition: blue 0.5ms;
+    color: bisque;
+    font-weight: bold;
+    text-align: center;
+    background-color: brown;
+    margin: 10px;
+    padding: 10px;
+    cursor: pointer;
+    width: 150px;
+    height: 80px;
+    border-radius: 10px;
+    border: 2px;
+    font-family: 'Ubuntu', sans-serif;
+}
+button:hover {
+    background-color: rgb(203, 17, 17);
+    color: black;
+}
+#apiButtons{
+    text-align: center;
+}
+body{
+    /* background-image: url("images/main2.jpeg"); */
+    background-color: bisque;
+}
+.bar1{
+    background-color: black;
+    margin: 0;
+    padding: 3px;
+    width:100%;
+}
+.analyzer::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 1000px; /* Adjust the distance of the line from the box */
+    width: 100%;
+    height: 5px;
+    /* background-color: cyan; Line color */
+}
+#loadeater{
+    /* display: none;  edit */
+    margin-top: 10%;
+    width: 160px;
+    height: 160px;
+    margin-left: 43%;
+    margin-bottom: 12%;
+}
+.bar1 .analyzer{
+    font-family: 'Pacifico', cursive;
+    font-size: 2rem;
+    text-align: left;
+    color: bisque;
+}
+.mainHead{
+    font-family: 'Barlow', sans-serif;
+    background-color: rgba(180, 104, 11, 0.808);
+    text-align: center;
+    color: black;
+    font-size: 1.5rem;
+    padding: 10px;
+}
+.mainHead .setFont{
+    font-weight: bold;
+}
+#codebox{
+    padding: 20px;
+    margin-left: 5px;
+    text-align: left;
+}
+
+#codebox #codeTextBox{
+    border-radius: 15px;
+    background-color: black;
+    color: #f8f8f8e5;
+}
+#present{
+    text-align: left;
+    display: flex;
+    flex-basis: 50px;
+}
+#present #rating{
+    margin: 5px;
+    padding-top: 55px;
+    display: inline-block;
+    
+}
+#ratingbox{
+    color:brown;
+    font-size: larger;
+}
+#present #statements{
+    margin: 5px;
+    display: inline-block;
+}
+#present #outputbox{
+    margin: 5px;
+    display: inline-block;
+    padding-top: 55px;
+}
+#outputTextBox{
+    background-color: black;
+    color: #f8f8f8e5;
+    border-radius: 15px;
+}
+#statementBox{
+    background-color: black;
+    color: #f8f8f8e5;
+    border-radius: 15px;
+}
+#moreinfo{
+    padding-left: 15px;
+}
+#present #ratingbox{
+    color: green;
+    font-weight: bolder;
+    font-size: 2rem;
+    font-family: 'Ubuntu', sans-serif;;
+}
+#present{
+    display: none;
+    /* edit */
+    color: brown;
+    font-family: 'Ubuntu', sans-serif;
+    font-weight: bold;
+}
+#present #codeDisplay{
+    
+}
+#foot{
+    text-align: right;
+    font-family: 'Pacifico', cursive;
+    font-size: 15px;
+}
