@@ -1,4 +1,6 @@
 # Code-Analyzer
 A learning tool to get an overview on the student's coding progress utilising snippets of code taken during a coding session.
 This application uses Python as its backend, making use of several libraries like flask and subprocess as well as Python methods like Pylint and Radon to judge the code in a particular snippet.
-The front-end was created using HTML and CSS and linked with the backend using API endpoints.
+Firstly, extract.py uses the snippets to generate a different file for all the codeblocks present in the snippet. This codeblock is then analysed using compilation.py which is incorporated in app.py using the python methods. The method Pylint judges the code on basis of predefined coding guidelines and gives statements criticizing it along with a rating out of 10. The next method, Radon, checks the complexity of the classes, functions and methods used in the code and returns it separately. The last criteria is the number of comments, since commenting is always a good practice. This is done by identifying '#'(python comments) and keeping its track. 
+The front-end was created using HTML and CSS and linked with the backend using API endpoints. The results from the methods and comment count is displayed graphically on the webpage and another webpage is designed for viewing specific codeblocks and taking a deeper look into the rating as well as the code itself.
+
